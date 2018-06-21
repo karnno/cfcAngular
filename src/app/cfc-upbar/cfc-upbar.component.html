@@ -1,0 +1,21 @@
+<img [src]=cfcLogoPath> 
+<!-- <span style="float:right"><img [src]=cfcLogoMenuPath> Menu</span>   -->
+<!-- <span style="float:right"><img [src]=cfcLogoSignInPath><a routerLink="/">{{userAction}}</a></span> -->
+
+<div ngbDropdown style="float:right"  class="d-inline-block">
+    <img [src]=cfcLogoMenuPath  ngbDropdownToggle>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1"> 
+        <button class="dropdown-item">Action - 1</button>
+        <button class="dropdown-item">Another Action</button>
+        <button class="dropdown-item">Something else</button>
+    </div>
+</div>
+
+<div ngbDropdown style="float:right; margin-right:10px"  class="d-inline-block">
+    <img [src]=cfcLogoSignInPath  ngbDropdownToggle>{{userLogged}}
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">    
+        <button class="dropdown-item" *ngFor="let userMI of userMenuItems; let ind=index" (click)="clickedOn(ind)">
+        {{userMI.label}}
+        </button>
+    </div>
+</div>

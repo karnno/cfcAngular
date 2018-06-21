@@ -1,0 +1,63 @@
+div.cfc-play-main-panel {
+    position            : relative;
+    margin-top          : 5px;
+    margin-bottom       : 5px;
+
+    border-style        : solid;
+    border-width        : 2px;
+    border-radius       : 10px;
+
+    padding-left        : 5px;
+    padding-right       : 5px;
+    
+    height              : 50vh;
+}
+
+div.cfc-player-one {
+    margin-top          : 5px;
+
+    border-style        : solid;
+    border-width        : 1px;
+    border-radius       : 10px;
+
+    padding-left        : 5px;
+    padding-right       : 5px;
+
+    width               : 45%;
+    height              : 97%;
+    
+    float               : left;
+}
+
+div.cfc-player-between { 
+    margin-top          : 5px;
+    margin-left         : 5px;
+    border-style        : solid;
+    border-width        : 1px;
+    border-radius       : 10px;
+
+    padding-left        : 0px;
+    padding-right       : 0px;
+
+    width               : auto;
+    height              : 97%;  
+    float               : left;
+}
+div.cfc-player-two {
+    
+    margin-top          : 5px;
+    
+
+    border-style        : solid;
+    border-width        : 1px;
+    border-radius       : 10px;
+
+    padding-left        : 5px;
+    padding-right       : 5px;
+
+    width               : 46%;
+    height              : 97%;  
+
+    float               : right;
+    
+}

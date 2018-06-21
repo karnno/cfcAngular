@@ -1,0 +1,21 @@
+<p>
+  CFC LOGIN
+</p>
+<div>
+	<label> name:
+	  <input #userName>
+	</label>
+</div>
+<div>
+	<label> password:
+    <input type="password" #userPassword 
+      (keyUp)=keyUp($event) 
+      (keyup.enter)="login(userName.value, userPassword.value)" >
+	</label>
+</div>
+
+
+<button (click)="clear()"  >clear</button>  
+<button (click)="login(userName.value, userPassword.value)"  >login</button>
+  
+
