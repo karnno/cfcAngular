@@ -7,6 +7,8 @@ div.cfc-play-main-panel {
     border-width        : 2px;
     border-radius       : 10px;
 
+    padding-top         : 5px;
+    padding-bottom      : 5px;
     padding-left        : 5px;
     padding-right       : 5px;
     
@@ -14,7 +16,6 @@ div.cfc-play-main-panel {
 }
 
 div.cfc-player-one {
-    margin-top          : 5px;
 
     border-style        : solid;
     border-width        : 1px;
@@ -24,13 +25,13 @@ div.cfc-player-one {
     padding-right       : 5px;
 
     width               : 45%;
-    height              : 97%;
+    height              : 100%;
     
     float               : left;
 }
 
 div.cfc-player-between { 
-    margin-top          : 5px;
+    
     margin-left         : 5px;
     border-style        : solid;
     border-width        : 1px;
@@ -39,13 +40,13 @@ div.cfc-player-between {
     padding-left        : 0px;
     padding-right       : 0px;
 
-    width               : auto;
-    height              : 97%;  
+    width               : 7.7%;
+    height              : 100%;  
     float               : left;
 }
 div.cfc-player-two {
     
-    margin-top          : 5px;
+    
     
 
     border-style        : solid;
@@ -56,7 +57,7 @@ div.cfc-player-two {
     padding-right       : 5px;
 
     width               : 46%;
-    height              : 97%;  
+    height              : 100%;  
 
     float               : right;
     

@@ -1,10 +1,10 @@
 <!--The AsyncPipe subscribes to an Observable automatically 
     so you won't have to do so in the component class.-->
-<div class="div-centered" *ngIf="isLoggedIn$ | async ">
-    <!-- the upbar is always here but the rest should be dynamic -->
-<app-cfc-upbar></app-cfc-upbar>
-<!-- <app-cfc-main-panel></app-cfc-main-panel>
-<app-cfc-log-messages></app-cfc-log-messages>
-<app-cfc-chat-messages></app-cfc-chat-messages> -->
+<!-- <div class="div-centered" *ngIf="isLoggedIn$ | async ">  -->
+
+<!-- isLoggedIn not an observable anymore -->
+<div class="div-centered" *ngIf="isLoggedIn">
+<app-cfc-upbar [userLoggedInName]="userLoggedName" (menuEventFromUpbar)="onMenuEventFromUpbar($event)"  ></app-cfc-upbar>
+<!-- the upbar is always here but the rest should be dynamic -->
 <ng-template app-cfc-main-content></ng-template>
 </div>

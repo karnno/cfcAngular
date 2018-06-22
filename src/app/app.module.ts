@@ -20,7 +20,11 @@ import { CfcLoginServiceService}          from './services/auth/cfc-login-servic
 import { AuthGuard }                      from './services/auth/auth.guard';
 
 import { CfcMainContentDirective }        from './cfc-main-content.directive';
+import { CfcUserProfileComponent }            from './cfc-user-profile-components/cfc-user-profile/cfc-user-profile.component';
+import { CfcUserProfileComponentsComponent }  from './cfc-user-profile-components/cfc-user-profile-components.component';
 
+import { CfcUserAchievementsComponentsComponent } from './cfc-user-achievements-components/cfc-user-achievements-components.component';
+import { CfcUserAchievementsComponent }           from './cfc-user-achievements-components/cfc-user-achievements/cfc-user-achievements.component'; 
 
 
 @NgModule({
@@ -33,7 +37,11 @@ import { CfcMainContentDirective }        from './cfc-main-content.directive';
     CfcPlayComponentsComponent, 
     CfcLoginComponent,
     CfcMainPageComponent,
-    CfcMainContentDirective
+    CfcMainContentDirective,
+    CfcUserProfileComponent,
+    CfcUserProfileComponentsComponent,
+    CfcUserAchievementsComponentsComponent,
+    CfcUserAchievementsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +55,18 @@ import { CfcMainContentDirective }        from './cfc-main-content.directive';
     CfcLoginServiceService,
     AuthGuard
   ],
-  entryComponents: [ CfcPlayComponentsComponent, CfcPlayMainPanelComponent, CfcLogMessagesComponent, CfcChatMessagesComponent ], 
+  entryComponents: [ 
+    CfcPlayComponentsComponent, 
+    CfcPlayMainPanelComponent, 
+    CfcLogMessagesComponent, 
+    CfcChatMessagesComponent,
+  
+    CfcUserProfileComponent,
+    CfcUserProfileComponentsComponent,
+
+    CfcUserAchievementsComponent,
+    CfcUserAchievementsComponentsComponent
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
