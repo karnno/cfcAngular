@@ -25,6 +25,7 @@ div.cfc-player-one {
     padding-right       : 5px;
 
     width               : 45%;
+    max-width           : 45%;
     height              : 100%;
     
     float               : left;
@@ -43,6 +44,8 @@ div.cfc-player-between {
     width               : 7.7%;
     height              : 100%;  
     float               : left;
+
+    text-align          :center;
 }
 div.cfc-player-two {
     
@@ -61,4 +64,25 @@ div.cfc-player-two {
 
     float               : right;
     
+}
+
+
+div.boxDeck {
+    background-color: #7a6400;
+    /*border          : solid 3px; */
+    
+}
+
+div.defenseCardsZone{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+div.boxCard {
+    background-color: #b9e4e7;
+    font-size: 8pt;
+}
+
+div.boxCard.defense{
+    padding: 5px; 
 }

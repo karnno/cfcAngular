@@ -1,6 +1,9 @@
-import { Component, AfterViewInit, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
 
-import { Observable }                   from 'rxjs';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
+
+import { takeWhile } from 'rxjs/operators'
 import { CfcLoginServiceService}        from '../services/auth/cfc-login-service.service';
 
 import { CfcMainContentDirective}       from '../cfc-main-content.directive';
@@ -12,10 +15,9 @@ import { CfcPlayComponentsComponent}    from '../cfc-play-components/cfc-play-co
 import { CfcUserProfileComponentsComponent } from '../cfc-user-profile-components/cfc-user-profile-components.component';
 import { CfcUserAchievementsComponentsComponent}  from '../cfc-user-achievements-components/cfc-user-achievements-components.component';
 
-
 /*
 
- This component will be displayed according to 
+ This component will be displayed if 
  the value of the field isLoggedIn$ (the $ is to indicate it's an observable),
 
   another interesting way to subscribe-unsubscribe to a service :
@@ -42,7 +44,10 @@ export class CfcMainPageComponent implements OnInit, AfterViewInit {
   // Anchor directive : where to insert the dynamic components
   @ViewChild(CfcMainContentDirective) anchorMainContent: CfcMainContentDirective;
 
-  constructor(private cfcLoginService: CfcLoginServiceService, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(
+    private cfcLoginService: CfcLoginServiceService, 
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private modalService: NgbModal) {
     // We are alive.
     this._alive = true;
    }
@@ -54,7 +59,6 @@ export class CfcMainPageComponent implements OnInit, AfterViewInit {
     // New way :
     // Get the login value (true/false).
     this.cfcLoginService.isLoggedIn
-        .takeWhile(() => this._alive)
         .subscribe((userIsLoggedIn: boolean) => {this.isLoggedIn = userIsLoggedIn ; this.userLoggedName = this.cfcLoginService.getLoggedUserName();});
   }
 
@@ -65,7 +69,7 @@ export class CfcMainPageComponent implements OnInit, AfterViewInit {
         return;
       } else {
           // depending on the action value, display the proper page
-          this.loadPlayPage(this.action);
+          this.loadPlayPage(this.action, {userLoggedName : this.userLoggedName});
       }
     }
   }
@@ -75,29 +79,44 @@ export class CfcMainPageComponent implements OnInit, AfterViewInit {
     this._alive = false;
   }
 
+  // if the event emitter is menuEventFromUpbar, the listener method is onMenuEventFromUpbar
+  onMenuEventFromUpbar (whichAction : string) {
+    const theData = {userLoggedName : this.userLoggedName};
+    if ('signout' == whichAction){
+      this.cfcLoginService.logout();
+    }
+    else if ('profile' == whichAction) {
+      this.loadPlayPage_openModal(theData);
+    } 
+    else if (this.action != whichAction){
+      this.action = whichAction; 
+      console.log ("main page component : received action : " + this.action );
+      this.loadPlayPage(this.action, theData);
+    }
+     
+  }
 
-  loadPlayPage(action : string){
-    var whichComponent : CfcMainComponentContainer; 
-    switch(action) { 
-      case "profile": { 
-         whichComponent   = new CfcMainComponentContainer(CfcUserProfileComponentsComponent, {userLoggedName : this.userLoggedName});
-         break; 
-      } 
+
+  loadPlayPage(action : string, theData : any){
+    
+    var pageComponentContainer : CfcMainComponentContainer; 
+    switch(action) {
       case "achievements": { 
-        whichComponent    = new CfcMainComponentContainer(CfcUserAchievementsComponentsComponent, {userLoggedName : this.userLoggedName});
+        pageComponentContainer    = new CfcMainComponentContainer(CfcUserAchievementsComponentsComponent, theData);
         break; 
       }
       case "play": { 
-        whichComponent    = new CfcMainComponentContainer(CfcPlayComponentsComponent, {userLoggedName : this.userLoggedName});
+        pageComponentContainer    = new CfcMainComponentContainer(CfcPlayComponentsComponent, theData);
         break; 
       }
 
       default: { 
-        whichComponent    = new CfcMainComponentContainer(CfcPlayComponentsComponent, {userLoggedName : this.userLoggedName});
+        pageComponentContainer    = new CfcMainComponentContainer(CfcPlayComponentsComponent, theData);
         break; 
       } 
-   } 
-    let pageComponentContainer = whichComponent; 
+    }
+
+    //let pageComponentContainer = whichComponent; 
 
     let playPageComponentFactory = this.componentFactoryResolver.resolveComponentFactory(pageComponentContainer.component);
 
@@ -105,28 +124,23 @@ export class CfcMainPageComponent implements OnInit, AfterViewInit {
     viewContainerRef.clear();
 
     //The createComponent() method returns a reference to the loaded component. 
-    let componentRef = viewContainerRef.createComponent(playPageComponentFactory);
+    const componentRef = viewContainerRef.createComponent(playPageComponentFactory);
     //Use that reference to interact with the component by assigning to its
     // properties or calling its methods.
     (<CfcMainComponentInterface>componentRef.instance).data = pageComponentContainer.data;
-
+     
     console.log('Page loaded !');
-  }
 
 
-  onMenuEventFromUpbar (whichAction : string) {
-    if ('signout' == whichAction){
-      this.cfcLoginService.logout();
-    }
-    else if (this.action != whichAction){
-      this.action = whichAction; 
-      console.log ("main page component : received action : " + this.action );
-      this.loadPlayPage(this.action);
-    }
   }
+
+  loadPlayPage_openModal(theData : any) {
+     
+    const modalRef = this.modalService
+      .open (CfcUserProfileComponentsComponent, { centered: true });
+    //const modalRef = this.modalService.open(NgbdModalContent); 
+
+    modalRef.componentInstance.data = theData;
+  }
+
 }
-
-
-// ERROR in 
-// src/app/app.module.ts(24,10):                            error TS2305: Module '"/Users/karnno/AngularWork/cfcangular00/src/app/cfc-user-profile-components/cfc-user-profile-components.component"' has no exported member 'CfcUserProfileComponentsComponent'.
-// src/app/cfc-main-page/cfc-main-page.component.ts(12,10): error TS2305: Module '"/Users/karnno/AngularWork/cfcangular00/src/app/cfc-user-profile-components/cfc-user-profile-components.component"' has no exported member 'CfcUserProfileComponentsComponent'.

@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* import bootstrap css ?   https://loiane.com/2017/08/how-to-add-bootstrap-to-an-angular-cli-project/*/
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~ng-drag-drop/style.css";
 body {
     background-color:  #bfccbf;
 }
+

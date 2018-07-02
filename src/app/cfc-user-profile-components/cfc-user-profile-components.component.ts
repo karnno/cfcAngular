@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cfc-user-profile-components',
@@ -9,7 +10,7 @@ export class CfcUserProfileComponentsComponent implements OnInit {
   @Input() data       : any;
 
   private userLogged : string;
-  constructor() { }
+  constructor(public activeModal: NgbActiveModal) { }
   
   ngOnInit() { 
     console.log(' user profile with : ' + this.data.userLoggedName);
