@@ -48,9 +48,6 @@ div.cfc-player-between {
     text-align          :center;
 }
 div.cfc-player-two {
-    
-    
-    
 
     border-style        : solid;
     border-width        : 1px;
@@ -66,11 +63,20 @@ div.cfc-player-two {
     
 }
 
+div.cfc-player-two.drag-hint-border {
+    border-style        : dashed;
+    border-width        : 2px;
+    border-color        : #ffbC05 dashed  2px;
+}
 
 div.boxDeck {
     background-color: #7a6400;
     /*border          : solid 3px; */
     
+}
+
+div.deckAndDrawnCardsZone{
+    padding-top: 5px;
 }
 
 div.defenseCardsZone{
@@ -81,8 +87,21 @@ div.defenseCardsZone{
 div.boxCard {
     background-color: #b9e4e7;
     font-size: 8pt;
+    margin-left : 5px;
 }
 
 div.boxCard.defense{
     padding: 5px; 
+    border: solid 1px rgb(255, 251, 3)
+}
+
+
+div.boxCard.heal{
+    padding: 5px; 
+    border: solid 1px rgb(3, 255, 37)
+}
+
+div.boxCard.offense{
+    padding: 5px; 
+    border: solid 1px rgb(255, 3, 3)
 }

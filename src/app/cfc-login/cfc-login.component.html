@@ -1,21 +1,21 @@
-<p>
-  CFC LOGIN
-</p>
-<div>
-	<label> name:
-	  <input #userName>
-	</label>
+<div class="loginMainDiv" fxLayout="column" fxLayoutAlign="center center">
+	<div>
+		<div align="center"><p>CFC LOGIN</p></div>
+		<div fxLayout="row">
+			<div fxLayout="column" style="padding-right:10px">
+				<div fxFlex="50" align="right">name :</div>
+				<div fxFlex="50" align="right">password :</div>
+			</div>
+			<div fxLayout="column" fxFlex="50" fxLayoutGap="3px">
+				<div fxFlex="50"><input #userName></div>
+				<div fxFlex="50"><input type="password" #userPassword 
+							(keyUp)=keyUp($event) 
+							(keyup.enter)="login(userName.value, userPassword.value)" >
+				</div>
+			</div>
+		</div>
+		<div style="margin-top:5px" align="center"><button (click)="clear()"  >clear</button>&nbsp;
+		<button (click)="login(userName.value, userPassword.value)"  >login</button></div>
+		
+	</div>
 </div>
-<div>
-	<label> password:
-    <input type="password" #userPassword 
-      (keyUp)=keyUp($event) 
-      (keyup.enter)="login(userName.value, userPassword.value)" >
-	</label>
-</div>
-
-
-<button (click)="clear()"  >clear</button>  
-<button (click)="login(userName.value, userPassword.value)"  >login</button>
-  
-

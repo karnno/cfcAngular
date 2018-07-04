@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {DropEvent}                  from 'ng-drag-drop';
+import { DropEvent}                 from 'ng-drag-drop';
 import { LeftPlayer }               from './cfc-left-player';
+import { RightPlayer }               from './cfc-right-player';
+import { CfcCardType }              from './cfc-card-type';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class CfcPlayMainPanelComponent implements OnInit {
   // listCardDefense2 = [];
 
   private cfcLeftPlayer : LeftPlayer;
-
+  private cfcRightPlayer: RightPlayer;
   // input info for user name
   @Input() userData : any ;
 
@@ -36,6 +38,7 @@ export class CfcPlayMainPanelComponent implements OnInit {
     this.userName = this.userData.userLoggedName;
 
     this.cfcLeftPlayer = new LeftPlayer(this.userName);
+    this.cfcRightPlayer = new RightPlayer('Evil-Opponent');
   }
 
   getUserName(): string {
@@ -57,6 +60,9 @@ export class CfcPlayMainPanelComponent implements OnInit {
   //   }
   // }
 
+  isDropAllowedDefenseOrHealCard = (dragData) => {
+    return dragData.type == CfcCardType.DEFENSE  || dragData.type == CfcCardType.HEAL;
+  }
 
   removeItem(item: any, list: Array<any>) {
     let index = list.map(function (val) {
@@ -90,4 +96,16 @@ export class CfcPlayMainPanelComponent implements OnInit {
       array.pop();
     }
   }
+
+  isDropAllowedOffenseCard = (dragData) => {
+    return dragData.type == CfcCardType.OFFENSE;
+  }
+
+  onDropOffense(e: DropEvent) {
+    //alert('___ '+e.dragData.name + '[' + e.dragData.energy + '|' + e.dragData.motivation + '|' + e.dragData.credibility + ']');
+    this.cfcRightPlayer.modifyVitals(e.dragData.energy , e.dragData.motivation , e.dragData.credibility);
+    this.removeItem(e.dragData, this.listCard1);
+    this.removeItem(e.dragData, this.cfcLeftPlayer.getDeck());
+  }
+
 }

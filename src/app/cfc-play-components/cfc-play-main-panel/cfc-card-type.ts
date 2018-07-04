@@ -1,10 +1,10 @@
 export enum CfcCardType {
     // to damage the opponent : direct effects 
-    OFFENSE, 
+    OFFENSE="offense", 
     
     // to use on one-self     : direct effects
-    HEAL,
+    HEAL ="heal",
     
     // to use as a shield     : activated when receiving a hit by opponent
-    DEFENSE
+    DEFENSE="defense"
 }

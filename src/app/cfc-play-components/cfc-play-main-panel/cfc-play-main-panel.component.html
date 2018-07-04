@@ -16,31 +16,72 @@
         <div fxFlex="15%">icon</div>
         <div fxFlex fxLayout="column" fxLayoutAlign="space-between none" >
             <div>{{userName}}</div>
-            <div><ngb-progressbar type="success"  [value]="25">25</ngb-progressbar></div>
-            <div><ngb-progressbar type="info"     [value]="50">50</ngb-progressbar></div>
-            <div><ngb-progressbar type="warning"  [value]="75" [max]="100">75</ngb-progressbar></div>
+            <div><ngb-progressbar type="success"  [value]="cfcLeftPlayer.energy"      [max]="20">{{cfcLeftPlayer.energy}}</ngb-progressbar></div>
+            <div><ngb-progressbar type="info"     [value]="cfcLeftPlayer.motivation"  [max]="20">{{cfcLeftPlayer.motivation}}</ngb-progressbar></div>
+            <div><ngb-progressbar type="warning"  [value]="cfcLeftPlayer.credibility" [max]="20">{{cfcLeftPlayer.credibility}}</ngb-progressbar></div>
         </div>
     </div>
 
     <!-- middle part :
      - deck + 3 card to display
     -->
-    <div fxFlex="25" fxlayoutgap="10px grid">
+    <div class="deckAndDrawnCardsZone" fxFlex="25" fxlayoutgap="10px grid">
         <div class="boxDeck" fxFlex="25" (click)="drawThreeCardsFromDeck()">Deck</div>
-        <div class="container" fxFlex fxLayoutAlign="space-around" >
-            <div draggable *ngFor="let card1 of listCard1" class="boxCard" fxFlex="33" [dragScope]="'deckCard1'" [dragData]="card1"  >{{card1.name}}</div>
+        <div class="container" fxFlex fxLayoutAlign="start stretch" >
+            <div draggable *ngFor="let card1 of listCard1" class="boxCard {{card1.type}}" fxFlex="30" [dragScope]="'deckCard1'" [dragData]="card1"  >{{card1.name}}</div>
         </div>
     </div>
     
     <!-- lower part 
         - 2 big zones for each card
     -->
-    <div class="defenseCardsZone" fxFlex fxLayout="row" fxLayoutAlign="space-around center"  droppable [dropScope]="'deckCard1'" (onDrop)="onDrop1($event)">
+    <div class="defenseCardsZone" fxFlex fxLayout="row" fxLayoutAlign="space-around center"  droppable [dropScope]="isDropAllowedDefenseOrHealCard" (onDrop)="onDrop1($event)">
         <div fxFlex="46" fxFill *ngFor="let cardDefense1 of listCardDefense1" class="boxCard defense">{{cardDefense1.name}}</div>
     </div>
 
 </div>
+
 <div class="cfc-player-between">VS</div>
 
-<div class="cfc-player-two">cfc player two </div>
+<div class="cfc-player-two" fxLayout="column"
+    fxLayoutGap="0px"
+    fxLayoutGap.xs="0"
+    
+    droppable [dropScope]="isDropAllowedOffenseCard" (onDrop)="onDropOffense($event)">
+
+
+<!-- upper part : 
+ - the player icon
+ - name
+ - the 3 bars 
+--> 
+<div fxFlex="25" fxFlexOffset.xs="0" fxLayout="row">
+    <div fxFlex="15%">XXXX</div>
+    <div fxFlex fxLayout="column" fxLayoutAlign="space-between none" >
+        <div>Evil-Opponent</div>
+        <div><ngb-progressbar type="success"  [value]="cfcRightPlayer.energy"      [max]="20">{{cfcRightPlayer.energy}}</ngb-progressbar></div>
+        <div><ngb-progressbar type="info"     [value]="cfcRightPlayer.motivation"  [max]="20">{{cfcRightPlayer.motivation}}</ngb-progressbar></div>
+        <div><ngb-progressbar type="warning"  [value]="cfcRightPlayer.credibility" [max]="20" >{{cfcRightPlayer.credibility}}</ngb-progressbar></div>
+    </div>
+</div>
+
+<!-- middle part :
+ - deck + 3 card to display
+-->
+<div class="deckAndDrawnCardsZone" fxFlex="25" fxlayoutgap="10px grid">
+    <div class="boxDeck" fxFlex="25" >Deck</div>
+    <div class="container" fxFlex fxLayoutAlign="start stretch" >
+        <div class="boxCard" fxFlex="30">DEF</div>
+    </div>
+</div>
+
+<!-- lower part 
+    - 2 big zones for each card
+-->
+<div class="defenseCardsZone" fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+    <div fxFlex="46" fxFill class="boxCard defense">DEF</div>
+</div>
+    
+</div>
+
 </div>
